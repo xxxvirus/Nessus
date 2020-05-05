@@ -1,0 +1,10 @@
+---
+- name: Docker
+  hosts: all
+  become: yes
+
+  tasks:
+  - include_vars: network.yml
+  - name: Create network config-only
+    command: docker network create --config-only --subnet {{ item.subnet }} --gateway {{ item.gateway }} --ip-range={{ item.ip }} -o parent=ens192.{{ item.id }} vlan{{ item.id }}_bridge
+    with_items: '{{ network }}'
