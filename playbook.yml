@@ -9,8 +9,8 @@
     changed_when: False
     register: dockerNets
 
-  - name: Create network config-only
-      shell: "docker network create --config-only --subnet 10.7.0.0/22 --gateway 10.7.0.1 --ip-range=10.7.0.20/32 -o parent=ens192.640 {{ item }}"
+  - name: Create network
+    shell: "docker network create --config-only --subnet 10.7.0.0/22 --gateway 10.7.0.1 --ip-range=10.7.0.20/32 -o parent=ens192.640 {{ item }}"
     when: item not in dockerNets.stdout
     loop:
       - vlan640_bridge
