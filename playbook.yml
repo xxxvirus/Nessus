@@ -8,7 +8,7 @@
     shell: "docker network ls"
     changed_when: False
     register: dockerNets
-  
+
   - name: Create network config-only
     command: docker network create --config-only --subnet "{{ item.subnet }}" --gateway "{{ item.gateway }}" --ip-range="{{ item.ip }}" -o parent=ens192."{{ item.id }}" "{{ item.name }}"
     when: item.name not in dockerNets.stdout
