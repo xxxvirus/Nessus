@@ -4,6 +4,11 @@
   become: yes
 
   tasks:
+  - name: List Docker networks
+    shell: "docker network ls"
+    changed_when: False
+    register: dockerNets
+  
   - name: Create network
     command: docker network create --config-only --subnet {{ item.subnet }} --gateway {{ item.gateway }} --ip-range={{ item.ip }} -o parent=ens192.{{ item.id }} vlan{{ item.id }}_bridge
     with_items:
