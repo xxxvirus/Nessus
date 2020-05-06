@@ -4,13 +4,13 @@
   become: yes
 
   tasks:
-  - name: Create network
-    docker_network:
-      name: vlan640_bridge
-      driver: macvlan
-      driver_options:
-        parent: ens192.640
-      ipam_config:
-        - subnet: 10.7.0.0/22
-          gateway: 10.7.0.1
-          iprange: 10.7.0.20/32
+  - name: List Docker networks
+    shell: "docker network ls"
+    changed_when: False
+    register: dockerNets
+
+  - include_vars: network.yml
+  - name: Create network config-only
+    command: docker network create --config-only --subnet {{ item.subnet }} --gateway {{ item.gateway }} --ip-range={{ item.ip }} -o parent=ens192.{{ item.id }} {{ item.name }}
+    when: item.name not in dockerNets.stdout
+    loop: '{{ network }}'
