@@ -4,8 +4,4 @@ network:
     ip: '10.7.0.20/32'
     gateway: '10.7.0.1'
     subnet: '10.7.0.0/22'
-
-  - id: 641
-    ip: '10.8.0.20/32'
-    gateway: '10.8.0.1'
-    subnet: '10.8.0.0/22'
+    name: vlan640_bridge
