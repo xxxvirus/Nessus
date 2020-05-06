@@ -16,7 +16,7 @@ pipeline {
   stages {
     stage('List') {
       steps {
-        sh 'ansible --version'
+        sh 'yum update ansible'
         sh 'ls -la'
         sh 'cat playbook.yml'
         ansiblePlaybook(playbook: 'playbook.yml', credentialsId: 'vmsnessus5', disableHostKeyChecking: true, inventory: 'hosts', colorized: true)
