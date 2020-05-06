@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'ansible/ubuntu14.04-ansible:stable'
+      image 'ansible/centos7-ansible'
       args '''-v /var/run/docker.sock:/var/run/docker.sock
               -v /opt/jenkins/workspace/jenkins-test_master/:/data
               -v /etc/passwd:/etc/passwd
