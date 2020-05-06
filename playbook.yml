@@ -11,6 +11,6 @@
 
   - include_vars: network.yml
   - name: Create network config-only
-    command: docker network create --config-only --subnet {{ item.subnet }} --gateway {{ item.gateway }} --ip-range={{ item.ip }} -o parent=ens192.{{ item.id }} {{ item.name }}
+    shell: "docker network create --config-only --subnet {{ item.subnet }} --gateway {{ item.gateway }} --ip-range={{ item.ip }} -o parent=ens192.{{ item.id }} {{ item.name }}"
     when: item.name not in dockerNets.stdout
     loop: '{{ network }}'
