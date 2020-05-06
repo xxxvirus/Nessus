@@ -4,14 +4,13 @@
   become: yes
 
   tasks:
-  - name: List Docker networks 
+  - name: List Docker networks
     shell: "docker network ls"
     changed_when: False
     register: dockerNets
-  
-  - name: Create missing Docker networks 
-      shell: "docker network create --attachable --driver=overlay {{item}}"
-      when: item not in dockerNets.stdout
-      loop:
-       - myNet1
-       - myNet2
+
+  - include_vars: network.yml
+  - name: Create network config-only
+    command: docker network create --config-only --subnet {{ item.subnet }} --gateway {{ item.gateway }} --ip-range={{ item.ip }} -o parent=ens192.{{ item.id }} {{ item.name }}
+    when: item.name not in dockerNets.stdout
+    loop: '{{ network }}'
