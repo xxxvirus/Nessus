@@ -16,8 +16,8 @@ pipeline {
   stages {
     stage('List') {
       steps {
-        ls -la
-        cat playbook.yml
+        sh 'ls -la'
+        sh 'cat playbook.yml'
         ansiblePlaybook(playbook: 'playbook.yml', credentialsId: 'vmsnessus5', disableHostKeyChecking: true, inventory: 'hosts', colorized: true)
       }
     }
