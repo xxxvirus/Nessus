@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'ansible/centos7-ansible'
+      image 'ansible/ansible'
       args '''-v /var/run/docker.sock:/var/run/docker.sock
               -v /opt/jenkins/workspace/jenkins-test_master/:/data
               -v /etc/passwd:/etc/passwd
@@ -16,7 +16,7 @@ pipeline {
   stages {
     stage('List') {
       steps {
-        sh 'yum update ansible'
+        sh 'ansible --version'
         sh 'ls -la'
         sh 'cat playbook.yml'
         ansiblePlaybook(playbook: 'playbook.yml', credentialsId: 'vmsnessus5', disableHostKeyChecking: true, inventory: 'hosts', colorized: true)
