@@ -10,7 +10,7 @@
     register: dockerNets
   
   - name: Create network
-    command: docker network create --config-only --subnet {{ item.subnet }} --gateway {{ item.gateway }} --ip-range={{ item.ip }} -o parent=ens192.{{ item.id }} vlan{{ item.id }}_bridge
-    with_items:
-      - { id: '640', ip: '10.7.0.20/32', gateway: '10.7.0.1', subnet: '10.7.0.0/22' }
-      - { id: '641', ip: '10.8.0.20/32', gateway: '10.8.0.1', subnet: '10.8.0.0/22' }
+    command: docker network create --config-only --subnet {{ item.subnet }} --gateway {{ item.gateway }} --ip-range={{ item.ip }} -o parent=ens192.{{ item.id }} {{ item.name }}
+    when: item.name not in dockerNets.stdout
+    loop:
+        - { id: '640', ip: '10.7.0.20/32', gateway: '10.7.0.1', subnet: '10.7.0.0/22', name: vlan640_bridge }
