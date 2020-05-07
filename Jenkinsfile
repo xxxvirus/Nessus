@@ -1,7 +1,6 @@
 pipeline {
-  agent {
+  agent { dockerfile true }
     docker {
-      image 'ansible/ansible:latest'
       args '''-v /var/run/docker.sock:/var/run/docker.sock
               -v /opt/jenkins/workspace/jenkins-test_master/:/data
               -v /etc/passwd:/etc/passwd
@@ -11,7 +10,7 @@ pipeline {
               -e USER=ansible
               -v /tmp:/opt/jenkins'''
     }
-
+}
   }
   stages {
     stage('List') {
