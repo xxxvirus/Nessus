@@ -17,7 +17,7 @@ pipeline {
     stage('List') {
       steps {
         sh 'ansible --version'
-        ansiblePlaybook(playbook: 'playbook.yml', credentialsId: 'vmsnessus5', disableHostKeyChecking: true, inventory: 'hosts', colorized: true)
+        ansiblePlaybook(playbook: 'playbook.yml', credentialsId: 'vmsnessus', disableHostKeyChecking: true, inventory: 'hosts', colorized: true)
       }
     }
   }
